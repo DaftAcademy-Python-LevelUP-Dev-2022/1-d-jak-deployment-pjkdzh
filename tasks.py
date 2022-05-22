@@ -63,15 +63,15 @@ def put_event(event: Event, response: Response):
 @app.get("/events/{date}", status_code=200)
 def get_event(date: str, response: Response):
     event_date=[]
-     if type(date) != str:
+    if type(date) != str:
         response.status_code = status.HTTP_400_BAD_REQUEST
         return status.HTTP_400_BAD_REQUEST
-     for event in events:
+    for event in events:
         if event["date"] == date:
             event_date.append(event)
-     if event_date:
+    if event_date:
         return event_date
-     response.status_code = status.HTTP_404_NOT_FOUND
-     return status.HTTP_404_NOT_FOUND
+    response.status_code = status.HTTP_404_NOT_FOUND
+    return status.HTTP_404_NOT_FOUND
 
 
