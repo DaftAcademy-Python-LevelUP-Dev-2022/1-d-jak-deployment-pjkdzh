@@ -1,3 +1,4 @@
+import datetime
 from fastapi import FastAPI, Response, status
 from pydantic import BaseModel
 
@@ -37,3 +38,39 @@ def get_day(name: str, number: int, response: Response):
         else:
             response.status_code = 400
             return {"Day or number": "not viable"}
+
+class Event(BaseModel):
+	date: str
+	event: str
+
+events = []
+
+@app.put("/events", status_code = 201)
+def put_event(event: Event):
+    out = {
+        "id": len(events),
+        "date": event.date,
+        "name": event.event,
+        "date_added": str(datetime.date.today())
+    }
+    events.append(out)
+    return out
+
+
+@app.get("/event/{date}", status_code=200)
+def get_event(date: str, response: Response):
+    event_date=[]
+    format = "%Y-%m-%d"
+    try:
+        datetime.datetime.strptime(date, format)
+        for event in events:
+            if event["date"] == date:
+                event_date.append(event)
+        if len(event_date) == 0:
+            response.status_code = 404
+            return "not found"
+        return event_date
+
+    except ValueError:
+        response.status_code = 400
+        return "Enter correct date"
