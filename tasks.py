@@ -7,9 +7,10 @@ app = FastAPI()
 def root():
     return {'start': '1970-01-01'}
 
-@app.post("/method")
+@app.post("/method", status_code=201)
 def method_post():
     return {"method": "POST"}
+
 
 @app.get("/method")
 def method_get():
@@ -26,7 +27,3 @@ def method_options():
 @app.delete("/method")
 def method_delete():
     return {"method": "DELETE"}
-
-@app.post("/method")
-def method_post():
-    return {"method": "POST"}
