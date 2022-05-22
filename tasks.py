@@ -45,7 +45,7 @@ class Event(BaseModel):
 
 events = []
 
-@app.put("/events", status_code = 201)
+@app.put("/events", status_code = 200)
 def put_event(event: Event, response: Response):
     out = {
         "id": len(events),
@@ -59,7 +59,7 @@ def put_event(event: Event, response: Response):
 
 
 
-@app.get("/events/{date}", status_code=201)
+@app.get("/events/{date}", status_code=200)
 def get_event(date: str, response: Response):
     event_date=[]
     format = "/%Y-%m-%d"
@@ -70,7 +70,7 @@ def get_event(date: str, response: Response):
                 event_date.append(event)
         if len(event_date) == 0:
             response.status_code = status.HTTP_404_NOT_FOUND
-            return response.status_code
+            return status.HTTP_404_NOT_FOUND
         return response.status_code
 
     except ValueError:
