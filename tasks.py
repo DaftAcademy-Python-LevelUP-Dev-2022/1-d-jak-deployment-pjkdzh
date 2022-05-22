@@ -58,6 +58,7 @@ def put_event(event: Event, response: Response):
     return out
 
 
+
 @app.get("/events/{date}", status_code=201)
 def get_event(date: str, response: Response):
     event_date=[]
@@ -69,9 +70,9 @@ def get_event(date: str, response: Response):
                 event_date.append(event)
         if len(event_date) == 0:
             response.status_code = 404
-            return "not found"
-        return event_date
+            return response.status_code
+        return response.status_code
 
     except ValueError:
         response.status_code = 400
-        return "Enter correct date"
+        return response.status_code
