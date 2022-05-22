@@ -69,7 +69,7 @@ def get_event(date: str, response: Response):
             if event["date"] == date:
                 event_date.append(event)
 
-        return status.HTTP_200_OK
+        return event_date
 
 
 
