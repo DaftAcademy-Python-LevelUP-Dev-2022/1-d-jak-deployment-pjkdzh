@@ -62,15 +62,15 @@ def put_event(event: Event, response: Response):
 @app.get("/events/{date}", status_code=200)
 def get_event(date: str, response: Response):
     event_date=[]
-    format = "/%Y-%m-%d"
+    format = "%Y-%m-%d"
     try:
         datetime.datetime.strptime(date, format)
         for event in events:
             if event["date"] == date:
                 event_date.append(event)
-        if event_date:
-            return status.HTTP_200_OK
-        return status.HTTP_404_NOT_FOUND
+
+        return status.HTTP_200_OK
+
 
 
     except ValueError:
