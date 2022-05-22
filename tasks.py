@@ -69,10 +69,10 @@ def get_event(date: str, response: Response):
             if event["date"] == date:
                 event_date.append(event)
         if len(event_date) == 0:
-            response.status_code = 404
+            response.status_code = status.HTTP_404_NOT_FOUND
             return response.status_code
         return response.status_code
 
     except ValueError:
-        response.status_code = 400
+        response.status_code = status.HTTP_400_BAD_REQUEST
         return response.status_code
