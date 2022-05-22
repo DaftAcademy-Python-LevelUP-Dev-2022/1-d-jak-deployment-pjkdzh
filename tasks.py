@@ -45,7 +45,7 @@ class Event(BaseModel):
 
 events = []
 
-@app.put("/events", status_code = 201)
+@app.put("/events", status_code = 200)
 def put_event(event: Event):
     out = {
         "id": len(events),
@@ -57,7 +57,7 @@ def put_event(event: Event):
     return out
 
 
-@app.get("/event/{date}", status_code=200)
+@app.get("/events/{date}", status_code=200)
 def get_event(date: str, response: Response):
     event_date=[]
     format = "%Y-%m-%d"
