@@ -73,6 +73,5 @@ def get_event(date: str, response: Response):
 
 
 
-    except ValueError:
-        response.status_code = status.HTTP_400_BAD_REQUEST
-        return response.status_code
+    except status.HTTP_400_BAD_REQUEST as exception:
+        pass
