@@ -73,7 +73,7 @@ def get_event(date: str, response: Response):
             return event_date
         response.status_code = status.HTTP_404_NOT_FOUND
         return status.HTTP_404_NOT_FOUND
-    except requests.HTTPError:
+    except status.HTTP_500_INTERNAL_SERVER_ERROR:
         response.status_code = status.HTTP_400_BAD_REQUEST
         return status.HTTP_400_BAD_REQUEST
 
