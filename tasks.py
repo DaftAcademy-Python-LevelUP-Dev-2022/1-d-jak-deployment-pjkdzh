@@ -1,6 +1,7 @@
 import datetime
 from fastapi import FastAPI, Response, status
 from pydantic import BaseModel
+import requests
 
 
 app = FastAPI()
@@ -63,11 +64,16 @@ def put_event(event: Event, response: Response):
 def get_event(date: str, response: Response):
     event_date=[]
     format = "%Y-%m-%d"
-    if datetime.datetime.strptime(date, format):
+    try:
+        datetime.datetime.strptime(date, format)
         for event in events:
             if event["date"] == date:
                 event_date.append(event)
-
-        return event_date
-    return status.HTTP_400_BAD_REQUEST
+        if event_date:
+            return event_date
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return status.HTTP_404_NOT_FOUND
+    except requests.HTTPError:
+        response.status_code = status.HTTP_400_BAD_REQUEST
+        return status.HTTP_400_BAD_REQUEST
 
