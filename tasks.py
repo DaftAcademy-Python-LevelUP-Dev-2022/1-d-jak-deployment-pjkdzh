@@ -45,8 +45,8 @@ class Event(BaseModel):
 
 events = []
 
-@app.put("/events", status_code = 200)
-def put_event(event: Event):
+@app.put("/events", status_code = 201)
+def put_event(event: Event, response: Response):
     out = {
         "id": len(events),
         "date": event.date,
@@ -54,13 +54,14 @@ def put_event(event: Event):
         "date_added": str(datetime.date.today())
     }
     events.append(out)
+
     return out
 
 
-@app.get("/events/{date}", status_code=200)
+@app.get("/events/{date}", status_code=201)
 def get_event(date: str, response: Response):
     event_date=[]
-    format = "%Y-%m-%d"
+    format = "/%Y-%m-%d"
     try:
         datetime.datetime.strptime(date, format)
         for event in events:
